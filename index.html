@@ -423,6 +423,56 @@
             font-weight: 500;
         }
 
+        /* ===== COUNTDOWN BANNER ===== */
+        .countdown-banner{
+            background: #1a6fb5;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+        }
+        .countdown-left{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .countdown-fire{ font-size: 20px; line-height: 1; }
+        .countdown-text{
+            font-family: -apple-system, system-ui, sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .countdown-right{
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .cd-num{
+            background: rgba(255,255,255,.15);
+            border: 1px solid rgba(255,255,255,.3);
+            border-radius: 4px;
+            padding: 5px 7px;
+            font-family: -apple-system, system-ui, sans-serif;
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: #fff;
+            min-width: 30px;
+            text-align: center;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+        .cd-sep{
+            font-size: 0.9rem;
+            font-weight: 800;
+            color: rgba(255,255,255,.7);
+            animation: cd-blink 1s step-end infinite;
+        }
+        @keyframes cd-blink{
+            0%, 100%{ opacity: 1; }
+            50%{ opacity: .3; }
+        }
+
         @media (max-width: 600px) {
             .content p { font-size: 1rem; }
             .testimonial { padding: 20px; }
@@ -435,6 +485,21 @@
 </head>
 <body>
     <div class="top-bar">Trusted Reviews &bull; Tools &amp; Automotive</div>
+
+    <!-- COUNTDOWN BANNER -->
+    <div class="countdown-banner" aria-label="Limited time offer">
+        <div class="countdown-left">
+            <span class="countdown-fire">&#128293;</span>
+            <span class="countdown-text">Deal ends today!</span>
+        </div>
+        <div class="countdown-right">
+            <span class="cd-num" id="cdHours">13</span>
+            <span class="cd-sep">:</span>
+            <span class="cd-num" id="cdMinutes">20</span>
+            <span class="cd-sep">:</span>
+            <span class="cd-num" id="cdSeconds">29</span>
+        </div>
+    </div>
 
     <header class="header">
         <div class="breadcrumb">
@@ -593,6 +658,24 @@
                 shown = false;
             }
         });
+
+        // Countdown Timer
+        (function(){
+            var hEl=document.getElementById('cdHours'),mEl=document.getElementById('cdMinutes'),sEl=document.getElementById('cdSeconds');
+            if(!hEl||!mEl||!sEl)return;
+            var TOTAL=13*3600+20*60+29,KEY='cd_end',end;
+            try{var s=localStorage.getItem(KEY);if(s){end=parseInt(s,10);if(isNaN(end)||end<=Date.now())end=null;}}catch(e){}
+            if(!end){end=Date.now()+TOTAL*1000;try{localStorage.setItem(KEY,String(end));}catch(e){}}
+            function pad(n){return n<10?'0'+n:String(n);}
+            function tick(){
+                var left=Math.max(0,Math.floor((end-Date.now())/1000));
+                hEl.textContent=pad(Math.floor(left/3600));
+                mEl.textContent=pad(Math.floor((left%3600)/60));
+                sEl.textContent=pad(left%60);
+                if(left<=0){end=Date.now()+TOTAL*1000;try{localStorage.setItem(KEY,String(end));}catch(e){}}
+            }
+            tick();setInterval(tick,1000);
+        })();
     </script>
 </body>
 </html>
