@@ -153,11 +153,41 @@
       background: #fff;
     }
 
-    /* badge “27% OFF” */
-    .badge-off{
+    /* badge “Black November” */
+    .badge-bn{
       position: absolute;
       left: 12px;
       top: 12px;
+      background: #0d0d0d;
+      color: #fff;
+      border-radius: 6px;
+      padding: 6px 8px 5px;
+      text-align: center;
+      width: 68px;
+      z-index: 2;
+      line-height: 1.15;
+    }
+    .badge-bn .bn-black{
+      display: block;
+      font-size: 14px;
+      font-weight: 900;
+      letter-spacing: .3px;
+    }
+    .badge-bn .bn-nov{
+      display: block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .2px;
+    }
+    .badge-bn .bn-dot{
+      color: #0b6ecb;
+    }
+
+    /* badge “UP TO 67% OFF” */
+    .badge-off{
+      position: absolute;
+      left: 12px;
+      top: 54px;
       background: var(--blue);
       color: #fff;
       border: 1px solid var(--blue);
@@ -167,7 +197,8 @@
       padding: 10px 10px;
       border-radius: 6px;
       text-align: center;
-      width: 58px;
+      width: 68px;
+      z-index: 2;
     }
     .badge-off span{
       display: block;
@@ -1720,6 +1751,11 @@
     <section class="hero" aria-label="Product hero">
       <div class="hero__imgbox">
         <img id="productImage" class="hero__img" src="images/P1.png" alt="PowerLift 20V Electric Car Jack & Master Tool Set 21V">
+
+        <div class="badge-bn" aria-label="Black November">
+          <span class="bn-black">Black</span>
+          <span class="bn-nov">November<span class="bn-dot">.</span></span>
+        </div>
 
         <div class="badge-off" aria-label="Discount badge">
           UP TO 67%
